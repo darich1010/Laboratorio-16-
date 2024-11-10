@@ -1,0 +1,15 @@
+public class Simulacion {
+    public static void main(String[] args) {
+        Mapa mapa = new Mapa(5, 5); // Crear un mapa de 5x5
+        Ejercito ejercito1 = new Ejercito("Inglaterra");
+        Ejercito ejercito2 = new Ejercito("Francia");
+
+        // Posicionar ejércitos en el mapa
+        mapa.posicionarEjercito(ejercito1);
+        mapa.posicionarEjercito(ejercito2);
+
+        System.out.println(mapa);
+        System.out.println("Ejército 1: " + ejercito1 + " - Nivel de vida total: " + ejercito1.nivelVidaTotal());
+        System.out.println("Ejército 2: " + ejercito2 + " - Nivel de vida total: " + ejercito2.nivelVidaTotal());
+    }
+}

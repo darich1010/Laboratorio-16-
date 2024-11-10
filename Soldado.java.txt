@@ -1,0 +1,28 @@
+import java.util.Random;
+
+public class Soldado {
+    private String reino;
+    private int nivelVida;
+
+    public Soldado(String reino) {
+        this.reino = reino;
+        this.nivelVida = new Random().nextInt(10) + 1; 
+    }
+
+    public String getReino() {
+        return reino;
+    }
+
+    public int getNivelVida() {
+        return nivelVida;
+    }
+
+    public void aumentarVida() {
+        this.nivelVida += 1;
+    }
+
+    @Override
+    public String toString() {
+        return "Soldado del reino " + reino + " con nivel de vida " + nivelVida;
+    }
+}

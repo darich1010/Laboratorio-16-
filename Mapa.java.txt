@@ -1,0 +1,54 @@
+import java.util.Random;
+public class Mapa {
+    private String tipoTerritorio;
+    private Ejercito[][] tablero;
+    private static final String[] TERRITORIOS = {"bosque", "campo abierto", "montaña", "desierto", "playa"};
+
+    public Mapa(int filas, int columnas) {
+        this.tablero = new Ejercito[filas][columnas];
+        this.tipoTerritorio = TERRITORIOS[new Random().nextInt(TERRITORIOS.length)]; 
+    }
+
+    public void posicionarEjercito(Ejercito ejercito) {
+        Random random = new Random();
+        int fila, columna;
+        do {
+            fila = random.nextInt(tablero.length);
+            columna = random.nextInt(tablero[0].length);
+        } while (tablero[fila][columna] != null);
+
+        tablero[fila][columna] = ejercito;
+        aplicarBonificacion(ejercito);
+    }
+
+    private void aplicarBonificacion(Ejercito ejercito) {
+       
+        String reino = ejercito.getReino();
+        if ((tipoTerritorio.equals("bosque") && (reino.equals("Inglaterra") || reino.equals("Sacro Imperio Romano-Germánico"))) ||
+            (tipoTerritorio.equals("campo abierto") && reino.equals("Francia")) ||
+            (tipoTerritorio.equals("montaña") && reino.equals("Castilla-Aragón")) ||
+            (tipoTerritorio.equals("desierto") && reino.equals("Moros"))) {
+            
+           
+            for (Soldado soldado : ejercito.getSoldados()) {
+                soldado.aumentarVida();
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Mapa de tipo de territorio: " + tipoTerritorio + "\n");
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[i].length; j++) {
+                if (tablero[i][j] == null) {
+                    sb.append("[   ] ");
+                } else {
+                    sb.append("[E] ");
+                }
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+}

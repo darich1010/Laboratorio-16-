@@ -1,0 +1,34 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class Ejercito {
+    private String reino;
+    private List<Soldado> soldados;
+
+    public Ejercito(String reino) {
+        this.reino = reino;
+        this.soldados = new ArrayList<>();
+        int cantidadSoldados = new Random().nextInt(10) + 1; 
+        for (int i = 0; i < cantidadSoldados; i++) {
+            soldados.add(new Soldado(reino));
+        }
+    }
+
+    public int nivelVidaTotal() {
+        return soldados.stream().mapToInt(Soldado::getNivelVida).sum();
+    }
+
+    public String getReino() {
+        return reino;
+    }
+
+    public List<Soldado> getSoldados() {
+        return soldados;
+    }
+
+    @Override
+    public String toString() {
+        return "Ejercito del reino " + reino + " con " + soldados.size() + " soldados";
+    }
+}
