@@ -9,7 +9,7 @@ public class Ejercito {
     public Ejercito(String reino) {
         this.reino = reino;
         this.soldados = new ArrayList<>();
-        int cantidadSoldados = new Random().nextInt(10) + 1; 
+        int cantidadSoldados = new Random().nextInt(10) + 1; // Entre 1 y 10 soldados
         for (int i = 0; i < cantidadSoldados; i++) {
             soldados.add(new Soldado(reino));
         }
@@ -27,7 +27,16 @@ public class Ejercito {
         return soldados;
     }
 
-    @Override
+    public void reducirVida(int danio) {
+        for (Soldado soldado : soldados) {
+            soldado.recibirDanio(danio);
+        }
+    }
+
+    public boolean estaDerrotado() {
+        return nivelVidaTotal() <= 0;
+    }
+    
     public String toString() {
         return "Ejercito del reino " + reino + " con " + soldados.size() + " soldados";
     }

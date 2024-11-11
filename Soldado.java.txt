@@ -6,7 +6,7 @@ public class Soldado {
 
     public Soldado(String reino) {
         this.reino = reino;
-        this.nivelVida = new Random().nextInt(10) + 1; 
+        this.nivelVida = new Random().nextInt(10) + 1; // Nivel de vida entre 1 y 10
     }
 
     public String getReino() {
@@ -21,7 +21,11 @@ public class Soldado {
         this.nivelVida += 1;
     }
 
-    @Override
+    public void recibirDanio(int danio) {
+        this.nivelVida -= danio;
+        if (this.nivelVida < 0) this.nivelVida = 0;
+    }
+    
     public String toString() {
         return "Soldado del reino " + reino + " con nivel de vida " + nivelVida;
     }

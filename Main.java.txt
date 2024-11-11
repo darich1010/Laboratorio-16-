@@ -1,0 +1,13 @@
+public class Main {
+    public static void main(String[] args) {
+        Simulador simulador = new Simulador(5, 5);
+        Ejercito ejercito1 = new Ejercito("Inglaterra");
+        Ejercito ejercito2 = new Ejercito("Francia");
+
+        simulador.agregarEjercito(ejercito1);
+        simulador.agregarEjercito(ejercito2);
+
+        simulador.ejecutarSimulacion();
+        simulador.mostrarResultado();
+    }
+}

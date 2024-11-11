@@ -1,0 +1,36 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Simulador {
+    private Mapa mapa;
+    private List<Ejercito> ejercitos;
+
+    public Simulador(int filas, int columnas) {
+        this.mapa = new Mapa(filas, columnas);
+        this.ejercitos = new ArrayList<>();
+    }
+
+    public void agregarEjercito(Ejercito ejercito) {
+        ejercitos.add(ejercito);
+        mapa.posicionarEjercito(ejercito);
+    }
+
+    public void ejecutarSimulacion() {
+        for (int i = 0; i < ejercitos.size() - 1; i++) {
+            for (int j = i + 1; j < ejercitos.size(); j++) {
+                Ejercito ganador = mapa.combate(ejercitos.get(i), ejercitos.get(j));
+                if (ganador != null) {
+                    System.out.println("El ganador es: " + ganador);
+                }
+            }
+        }
+    }
+
+    public void mostrarResultado() {
+        System.out.println("Estado final del mapa:");
+        System.out.println(mapa);
+        for (Ejercito ejercito : ejercitos) {
+            System.out.println(ejercito + " - Nivel de vida total: " + ejercito.nivelVidaTotal());
+        }
+    }
+}

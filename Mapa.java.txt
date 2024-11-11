@@ -1,4 +1,5 @@
 import java.util.Random;
+
 public class Mapa {
     private String tipoTerritorio;
     private Ejercito[][] tablero;
@@ -6,7 +7,7 @@ public class Mapa {
 
     public Mapa(int filas, int columnas) {
         this.tablero = new Ejercito[filas][columnas];
-        this.tipoTerritorio = TERRITORIOS[new Random().nextInt(TERRITORIOS.length)]; 
+        this.tipoTerritorio = TERRITORIOS[new Random().nextInt(TERRITORIOS.length)]; // Tipo de territorio aleatorio
     }
 
     public void posicionarEjercito(Ejercito ejercito) {
@@ -15,14 +16,14 @@ public class Mapa {
         do {
             fila = random.nextInt(tablero.length);
             columna = random.nextInt(tablero[0].length);
-        } while (tablero[fila][columna] != null);
+        } while (tablero[fila][columna] != null); 
 
         tablero[fila][columna] = ejercito;
         aplicarBonificacion(ejercito);
     }
 
     private void aplicarBonificacion(Ejercito ejercito) {
-       
+        
         String reino = ejercito.getReino();
         if ((tipoTerritorio.equals("bosque") && (reino.equals("Inglaterra") || reino.equals("Sacro Imperio Romano-Germánico"))) ||
             (tipoTerritorio.equals("campo abierto") && reino.equals("Francia")) ||
@@ -36,7 +37,21 @@ public class Mapa {
         }
     }
 
-    @Override
+    public Ejercito combate(Ejercito ejercito1, Ejercito ejercito2) {
+        int fuerzaEjercito1 = ejercito1.nivelVidaTotal();
+        int fuerzaEjercito2 = ejercito2.nivelVidaTotal();
+        int danio = 2;
+
+        if (fuerzaEjercito1 > fuerzaEjercito2) {
+            ejercito2.reducirVida(danio);
+            if (ejercito2.estaDerrotado()) return ejercito1;
+        } else if (fuerzaEjercito2 > fuerzaEjercito1) {
+            ejercito1.reducirVida(danio);
+            if (ejercito1.estaDerrotado()) return ejercito2;
+        }
+        return null;
+    }
+    
     public String toString() {
         StringBuilder sb = new StringBuilder("Mapa de tipo de territorio: " + tipoTerritorio + "\n");
         for (int i = 0; i < tablero.length; i++) {
